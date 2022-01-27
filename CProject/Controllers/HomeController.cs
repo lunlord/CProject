@@ -17,7 +17,7 @@ namespace CProject.Controllers
         {
             _logger = logger;
         }
-
+        
         public IActionResult Index()
         {
             return View();
@@ -32,6 +32,12 @@ namespace CProject.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Register()
+        {
+            ViewBag.Message = "User Register";
+            return View();
         }
     }
 }
