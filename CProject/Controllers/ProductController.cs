@@ -47,7 +47,8 @@ namespace CProject.Controllers
         // GET: Product/Create
         public IActionResult Create()
         {
-            ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Id");
+            //При создании товара поле выбора будет состоять из Name компаний 
+            ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Name");
             return View();
         }
 
@@ -64,7 +65,7 @@ namespace CProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Id", product.ManufacturerId);
+            ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Name", product.ManufacturerId);
             return View(product);
         }
 
@@ -81,7 +82,7 @@ namespace CProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Id", product.ManufacturerId);
+            ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Name", product.ManufacturerId);
             return View(product);
         }
 
