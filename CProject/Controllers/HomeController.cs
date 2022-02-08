@@ -1,4 +1,5 @@
 ﻿using CProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -28,10 +29,12 @@ namespace CProject.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public async Task<IActionResult> Index()
+        [Authorize]
+        public IActionResult Index()
         {
-            return View(await db.Users.ToListAsync());
+            return Redirect("~/Account/Welcome");
         }
+
         public IActionResult Register()
         {
             return View();
@@ -43,5 +46,7 @@ namespace CProject.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+
     }
 }

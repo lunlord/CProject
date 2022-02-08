@@ -16,7 +16,7 @@ namespace CProject.Models
         [Display(Name = "Password")]
         [Required(ErrorMessage = "You need to enter Password")]
         [DataType(DataType.Password)]
-        public int Password { get; set; }
+        public String Password { get; set; }
 
         [Display(Name = "Phone number")]
         [DataType(DataType.PhoneNumber)]
