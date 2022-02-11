@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace CProject
 {
@@ -27,14 +29,36 @@ namespace CProject
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<UserContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<UserContext>(options => options.UseSqlServer(connection))
+                .AddIdentity<User, IdentityRole>(options =>
+                {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredLength = 8;
+                })
+                .AddEntityFrameworkStores<UserContext>();
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
+            services.ConfigureApplicationCookie(options =>
         {
-            options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+            options.LoginPath = "/Account/Login";
+            options.AccessDeniedPath = "/Home/AccessDenied";
         });
-            services.AddAuthorization();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Director", builder =>
+                {
+                    builder.RequireClaim(ClaimTypes.Role, "Director");
+                });
+
+                options.AddPolicy("Storekeeper", builder =>
+                {
+                    builder.RequireAssertion(x => x.User.HasClaim(ClaimTypes.Role, "Storekeeper")
+                                                 || x.User.HasClaim(ClaimTypes.Role, "Director"));
+                });
+            });
+
 
             services.AddControllersWithViews();
         }
@@ -48,8 +72,7 @@ namespace CProject
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseExceptionHandler("/Home/Error");              
                 app.UseHsts();
             }
             app.UseHttpsRedirection();

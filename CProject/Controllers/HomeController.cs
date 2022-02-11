@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
+using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -17,6 +18,10 @@ namespace CProject.Controllers
         public HomeController(UserContext context)
         {
             db = context;
+        }
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
         public IActionResult Privacy()
         {
@@ -35,17 +40,7 @@ namespace CProject.Controllers
             return Redirect("~/Account/Welcome");
         }
 
-        public IActionResult Register()
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Register(User user)
-        {
-            db.Users.Add(user);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
+       
 
 
     }

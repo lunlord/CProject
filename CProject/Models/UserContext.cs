@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace CProject.Models
 {
-    public class UserContext : DbContext
+    public class UserContext: IdentityDbContext<User>
     {
-        public DbSet<User> Users { get; set; }
+
         public DbSet<Product> Products { get; set; }
         public DbSet<Company> Companies { get; set; }
 
