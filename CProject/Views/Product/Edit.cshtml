@@ -4,8 +4,9 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Редактировать</h1>
+<h1>Edit</h1>
 
+<h4>Product</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -13,29 +14,39 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label">Наименование</label>
+                <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label">Цена</label>
+                <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ManufacturerId" class="control-label">Фирма</label>
+                <label asp-for="SectionNumber" class="control-label"></label>
+                <input asp-for="SectionNumber" class="form-control" />
+                <span asp-validation-for="SectionNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CellNumber" class="control-label"></label>
+                <input asp-for="CellNumber" class="form-control" />
+                <span asp-validation-for="CellNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ManufacturerId" class="control-label"></label>
                 <select asp-for="ManufacturerId" class="form-control" asp-items="ViewBag.ManufacturerId"></select>
                 <span asp-validation-for="ManufacturerId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Вернуться к списку</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
