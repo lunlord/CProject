@@ -1,10 +1,26 @@
-﻿namespace CProject.ViewModels
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace CProject.ViewModels
 {
     public class EditUserModel
     {
         public string Id { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Phone number")]
+        [DataType(DataType.PhoneNumber)]
+        [Required(ErrorMessage = "You need to enter Phone number")]
+        public String PhoneNumber { get; set; }
+
+        [Display(Name = "Adress")]
+        [Required(ErrorMessage = "You need to enter Adress")]
+        public String Adress { get; set; }
+
+        [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "You need to enter Email")]
+        public String Email { get; set; }
+
+        public String Role { get; set; }
     }
 }

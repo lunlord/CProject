@@ -18,7 +18,8 @@ namespace CProject.Data
                 UserName = "director@m.ru",
                 Adress = "Selo Zar",
                 Email = "director@m.ru",
-                PhoneNumber = "79000220000"
+                PhoneNumber = "79000220000",
+                UserRole = "Director"
             };
 
             var result = userManager.CreateAsync(director, "aaaaaaaa").GetAwaiter().GetResult();
@@ -32,7 +33,8 @@ namespace CProject.Data
                 UserName = "storekeeper@m.ru",
                 Adress = "Selo Zar",
                 Email = "storekeeper@m.ru",
-                PhoneNumber = "79000220000"
+                PhoneNumber = "79000220000",
+                UserRole = "Storekeeper"
             };
            
             var result1 = userManager.CreateAsync(storekeeper, "aaaaaaaa").GetAwaiter().GetResult();
@@ -46,7 +48,8 @@ namespace CProject.Data
                 UserName = "logistician@m.ru",
                 Adress = "Selo Zar",
                 Email = "logistician@m.ru",
-                PhoneNumber = "7900033000"
+                PhoneNumber = "7900033000",
+                UserRole = "Logistician"
             };
             
             var result2 = userManager.CreateAsync(logistician, "aaaaaaaa").GetAwaiter().GetResult();
@@ -61,7 +64,8 @@ namespace CProject.Data
                 UserName = "wholesaler@m.ru",
                 Adress = "Selo Zar",
                 Email = "wholesaler@m.ru",
-                PhoneNumber = "7900000000"
+                PhoneNumber = "7900000000",
+                UserRole = "Wholesaler"
             };
       
             var result3 = userManager.CreateAsync(wholesaler, "aaaaaaaa").GetAwaiter().GetResult();

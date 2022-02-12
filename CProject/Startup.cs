@@ -32,6 +32,9 @@ namespace CProject
             services.AddDbContext<UserContext>(options => options.UseSqlServer(connection))
                 .AddIdentity<User, IdentityRole>(options =>
                 {
+                    
+                    options.User.RequireUniqueEmail = true;
+                    options.User.AllowedUserNameCharacters = ".@abcdefghijklmnopqrstuvwxyz1234567890";
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;

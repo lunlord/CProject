@@ -23,5 +23,7 @@ namespace CProject.ViewModels
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "You need to enter Email")]
         public String Email { get; set; }
+
+        public String UserRole { get; set; }
     }
 }

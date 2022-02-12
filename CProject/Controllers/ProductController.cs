@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 namespace CProject.Controllers
 {
     [Authorize]
-    [Authorize(Policy = "Storekeeper")]
     public class ProductController : Controller
     {
         private readonly UserContext _context;
@@ -44,7 +43,8 @@ namespace CProject.Controllers
 
             return View(product);
         }
-
+        [Authorize]
+        [Authorize(Policy = "Storekeeper")]
         public IActionResult Create()
         {
             ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Id");
@@ -64,7 +64,8 @@ namespace CProject.Controllers
             ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Id", product.ManufacturerId);
             return View(product);
         }
-
+        [Authorize]
+        [Authorize(Policy = "Storekeeper")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -113,7 +114,8 @@ namespace CProject.Controllers
             ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Id", product.ManufacturerId);
             return View(product);
         }
-
+        [Authorize]
+        [Authorize(Policy = "Storekeeper")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

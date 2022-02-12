@@ -24,8 +24,7 @@ namespace CProject.ViewModels
         [Required(ErrorMessage = "You need to enter Email")]
         public String Email { get; set; }
 
-        [Display(Name = "Role")]
-        [Required(ErrorMessage = "You need choice user's role")]
+        //[Display(Name = "Role")]
         public String Role { get; set; }
     }
 }

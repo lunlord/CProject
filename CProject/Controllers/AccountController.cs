@@ -33,7 +33,7 @@ namespace CProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterModel model)
         {
-                User user = new User { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber, Adress = model.Adress };
+                User user = new User { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber, Adress = model.Adress, UserRole = model.UserRole };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -97,7 +97,7 @@ namespace CProject.Controllers
 
             return View();
         }
-
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

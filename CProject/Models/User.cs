@@ -14,6 +14,8 @@ namespace CProject.Models
         [Display(Name = "Adress")]
         [Required(ErrorMessage = "You need to enter Adress")]
         public String Adress { get; set; }
+
+        public String UserRole { get; set; }
     }
 }
 
