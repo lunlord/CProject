@@ -22,7 +22,7 @@ namespace CProject.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var userContext = _context.Products.Include(p => p.Manufacturer);
+            var userContext = _context.Products.Include(p => p.Manufacturer).Include(p => p.Status);
             return View(await userContext.ToListAsync());
         }
 
@@ -35,6 +35,7 @@ namespace CProject.Controllers
 
             var product = await _context.Products
                 .Include(p => p.Manufacturer)
+                .Include(p => p.Status)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -47,21 +48,23 @@ namespace CProject.Controllers
         [Authorize(Policy = "Storekeeper")]
         public IActionResult Create()
         {
-            ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Id");
+            ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Name");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,ManufacturerId")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,SectionNumber,CellNumber,ManufacturerId,StatusId,StatusDate")] Product product)
         {
             if (ModelState.IsValid)
             {
+                product.StatusId = 1;
+                product.StatusDate = DateTime.Now;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Id", product.ManufacturerId);
+            ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Name", product.ManufacturerId);
             return View(product);
         }
         [Authorize]
@@ -78,13 +81,13 @@ namespace CProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Id", product.ManufacturerId);
+            ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Name", product.ManufacturerId);
             return View(product);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,ManufacturerId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,SectionNumber,CellNumber,ManufacturerId,StatusId,StatusDate")] Product product)
         {
             if (id != product.Id)
             {
@@ -111,7 +114,7 @@ namespace CProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Id", product.ManufacturerId);
+            ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Name", product.ManufacturerId);
             return View(product);
         }
         [Authorize]
@@ -125,6 +128,7 @@ namespace CProject.Controllers
 
             var product = await _context.Products
                 .Include(p => p.Manufacturer)
+                .Include(p => p.Status)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
