@@ -11,7 +11,7 @@ namespace CProject.Data
         public static void Init(IServiceProvider scopeServiceProvider)
         {
             var userManager = scopeServiceProvider.GetService<UserManager<User>>();
-            
+
             //директор
             var director = new User
             {
@@ -36,7 +36,7 @@ namespace CProject.Data
                 PhoneNumber = "79000220000",
                 UserRole = "Storekeeper"
             };
-           
+
             var result1 = userManager.CreateAsync(storekeeper, "aaaaaaaa").GetAwaiter().GetResult();
             if (result.Succeeded)
             {
@@ -51,7 +51,7 @@ namespace CProject.Data
                 PhoneNumber = "7900033000",
                 UserRole = "Logistician"
             };
-            
+
             var result2 = userManager.CreateAsync(logistician, "aaaaaaaa").GetAwaiter().GetResult();
             if (result.Succeeded)
             {
@@ -67,7 +67,7 @@ namespace CProject.Data
                 PhoneNumber = "7900000000",
                 UserRole = "Wholesaler"
             };
-      
+
             var result3 = userManager.CreateAsync(wholesaler, "aaaaaaaa").GetAwaiter().GetResult();
             if (result.Succeeded)
             {

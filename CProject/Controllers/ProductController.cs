@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using CProject.Models;
-using Microsoft.AspNetCore.Authorization;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CProject.Controllers
 {
@@ -44,6 +43,7 @@ namespace CProject.Controllers
 
             return View(product);
         }
+
         [Authorize]
         [Authorize(Policy = "Storekeeper")]
         public IActionResult Create()
@@ -67,6 +67,7 @@ namespace CProject.Controllers
             ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Name", product.ManufacturerId);
             return View(product);
         }
+
         [Authorize]
         [Authorize(Policy = "Storekeeper")]
         public async Task<IActionResult> Edit(int? id)
@@ -117,6 +118,7 @@ namespace CProject.Controllers
             ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Name", product.ManufacturerId);
             return View(product);
         }
+
         [Authorize]
         [Authorize(Policy = "Storekeeper")]
         public async Task<IActionResult> Delete(int? id)
@@ -145,6 +147,31 @@ namespace CProject.Controllers
             var product = await _context.Products.FindAsync(id);
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> AddToShoppingCart(Product product)
+        //{
+        //        ShoppingCart shoppingcart = new ShoppingCart { IdProduct = product.Id, Name = product.Name, Price = product.Price, SectionNumber = product.SectionNumber, CellNumber = product.CellNumber, ManufacturerId = product.ManufacturerId};
+        //        _context.Add(shoppingcart);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //}
+
+        [HttpPost]
+        public async Task<IActionResult> AddToShoppingCart(int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            if (product.StatusId == 1)
+            {
+                //int status2 = 2;
+                product.StatusId = 2;
+                //int query = await _context.Database.ExecuteSqlRawAsync("UPDATE Products SET StatusId = {0}", status2);
+                ShoppingCart shoppingcart = new ShoppingCart { IdProduct = product.Id, Name = product.Name, Price = product.Price, SectionNumber = product.SectionNumber, CellNumber = product.CellNumber, ManufacturerId = product.ManufacturerId };
+                _context.Add(shoppingcart);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 

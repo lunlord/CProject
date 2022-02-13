@@ -1,18 +1,12 @@
+using CProject.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using CProject.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
 
 namespace CProject
 {
@@ -32,7 +26,6 @@ namespace CProject
             services.AddDbContext<UserContext>(options => options.UseSqlServer(connection))
                 .AddIdentity<User, IdentityRole>(options =>
                 {
-                    
                     options.User.RequireUniqueEmail = true;
                     options.User.AllowedUserNameCharacters = ".@abcdefghijklmnopqrstuvwxyz1234567890";
                     options.Password.RequireDigit = false;
@@ -62,7 +55,6 @@ namespace CProject
                 });
             });
 
-
             services.AddControllersWithViews();
         }
 
@@ -75,7 +67,7 @@ namespace CProject
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");              
+                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
             app.UseHttpsRedirection();

@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace CProject.Models
 {
-    public class Role: IdentityRole<int>
+    public class Role : IdentityRole<int>
     {
         //public string RoleUser;
     }

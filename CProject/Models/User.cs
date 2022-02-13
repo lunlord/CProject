@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CProject.Models
 {
-    public class User: IdentityUser
+    public class User : IdentityUser
     {
         //[Display(Name = "Phone number")]
         //[DataType(DataType.PhoneNumber)]
@@ -18,4 +18,3 @@ namespace CProject.Models
         public String UserRole { get; set; }
     }
 }
-
