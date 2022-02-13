@@ -38,6 +38,8 @@
                 <select asp-for="ManufacturerId" class="form-control" asp-items="ViewBag.ManufacturerId"></select>
                 <span asp-validation-for="ManufacturerId" class="text-danger"></span>
             </div>
+            <input type="hidden" asp-for="StatusId" />
+            <input type="hidden" asp-for="StatusDate" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
