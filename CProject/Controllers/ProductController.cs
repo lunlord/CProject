@@ -63,7 +63,6 @@ namespace CProject.Controllers
             return View(product);
         }
 
-        [Authorize]
         [Authorize(Policy = "Storekeeper")]
         public IActionResult Create()
         {
@@ -87,8 +86,8 @@ namespace CProject.Controllers
             return View(product);
         }
 
-        [Authorize]
-        [Authorize(Policy = "Storekeeper")]
+
+        [Authorize(Policy = "Logistician")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -138,8 +137,7 @@ namespace CProject.Controllers
             return View(product);
         }
 
-        [Authorize]
-        [Authorize(Policy = "Storekeeper")]
+        [Authorize(Policy = "Logistician")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -179,6 +177,7 @@ namespace CProject.Controllers
         //}
 
         [HttpPost]
+        [Authorize(Policy = "Wholesaler")]
         public async Task<IActionResult> AddToShoppingCart(int id)
         {
             var product = await _context.Products.FindAsync(id);
