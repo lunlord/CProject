@@ -33,22 +33,24 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SectionNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CellNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ManufacturerId)
-                </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SectionNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CellNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ManufacturerId)
+            </td>
+            @if (User.IsInRole("Wholesaler") || User.IsInRole("Director"))
+            {
                 <td>
                     <a asp-action="Details" asp-route-id="@item.Id">Информация</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Удалить товар</a>
@@ -56,6 +58,7 @@
                         <button type="submit" class="btn btn-danger">Оформить заказ</button>
                     </form>
                 </td>
+            }
             </tr>
 
         }

@@ -44,7 +44,7 @@ namespace CProject.Controllers
             return View(product);
         }
 
-        [Authorize(Policy = "Storekeeper")]
+        [Authorize(Roles = "Storekeeper, Director")]
         public IActionResult Create()
         {
             ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Name");
@@ -67,8 +67,7 @@ namespace CProject.Controllers
             return View(product);
         }
 
-
-        [Authorize(Policy = "Logistician")]
+        [Authorize(Roles = "Logistician , Director, Storekeeper")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -118,7 +117,7 @@ namespace CProject.Controllers
             return View(product);
         }
 
-        [Authorize(Policy = "Logistician")]
+        [Authorize(Roles = "Logistician, Director, Storekeeper")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -143,8 +142,22 @@ namespace CProject.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            int idProduct = product.Id;
+            if (product.StatusId == 2)
+            {
+                var foos = _context.ShoppingCarts
+                   .Where(x => x.IdProduct == idProduct).FirstOrDefault();
+
+                _context.ShoppingCarts.Remove(foos);
+
+                _context.Products.Remove(product);
+                await _context.SaveChangesAsync();
+            }
+            else if (product.StatusId != 2)
+            {
+                _context.Products.Remove(product);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 
@@ -158,15 +171,13 @@ namespace CProject.Controllers
         //}
 
         [HttpPost]
-        [Authorize(Policy = "Wholesaler")]
+        [Authorize(Roles = "Wholesaler, Director")]
         public async Task<IActionResult> AddToShoppingCart(int id)
         {
             var product = await _context.Products.FindAsync(id);
             if (product.StatusId == 1)
             {
-                //int status2 = 2;
                 product.StatusId = 2;
-                //int query = await _context.Database.ExecuteSqlRawAsync("UPDATE Products SET StatusId = {0}", status2);
                 ShoppingCart shoppingcart = new ShoppingCart { IdProduct = product.Id, Name = product.Name, Price = product.Price, SectionNumber = product.SectionNumber, CellNumber = product.CellNumber, ManufacturerId = product.ManufacturerId };
                 _context.Add(shoppingcart);
                 await _context.SaveChangesAsync();

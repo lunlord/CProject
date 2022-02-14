@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace CProject.Controllers
 {
-
     [Authorize(Policy = "Director")]
     public class UsersController : Controller
     {

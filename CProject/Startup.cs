@@ -47,6 +47,7 @@ namespace CProject
                 {
                     builder.RequireClaim(ClaimTypes.Role, "Director");
                 });
+
                 options.AddPolicy("Storekeeper", builder =>
                 {
                     builder.RequireClaim(ClaimTypes.Role, "Storekeeper");

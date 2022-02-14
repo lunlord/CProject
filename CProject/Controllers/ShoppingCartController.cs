@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CProject.Controllers
 {
-    [Authorize(Policy = "Wholesaler")]
+    [Authorize(Roles = "Wholesaler, Director")]
     public class ShoppingCartController : Controller
     {
         private readonly UserContext _context;
@@ -64,33 +64,21 @@ namespace CProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            //int status1 = 1;
-            //int status2 = 2;
             var shoppingCart = await _context.ShoppingCarts.FindAsync(id);
-            int idprod = shoppingCart.IdProduct;
-            var sproducts = await _context.Products.FindAsync(idprod);
-            int idP = sproducts.Id;
-            if (idP == idprod){
-                sproducts.StatusId = 1;
+            int idProdSc = shoppingCart.IdProduct;
+
+            var product = await _context.Products.FindAsync(idProdSc);
+            int idProduct = product.Id;
+
+            if (idProduct == idProdSc)
+            {
+                product.StatusId = 1;
                 _context.ShoppingCarts.Remove(shoppingCart);
                 await _context.SaveChangesAsync();
             }
-            //int queryId = await _context.Database.ExecuteSqlRawAsync("SELECT Id FROM Products WHERE Id = {0}", idprod);
-            ////int queryIdProducts = await _context.Database.ExecuteSqlRawAsync("SELECT IdProduct FROM ShoppingCarts WHERE IdProduct = {0}", idprod);
-            //int query1 = await _context.Database.ExecuteSqlRawAsync("UPDATE Products SET StatusId = {0} WHERE Id = {1}", status2, queryId);
 
             return RedirectToAction(nameof(Index));
         }
-
-        //[HttpPost]
-        //public async Task<IActionResult> СonfirmPurchase()
-        //{
-        //    int status = 3;
-        //    int query1 = await _context.Database.ExecuteSqlRawAsync("UPDATE Products SET StatusId={0} WHERE Id = (SELECT IdProduct FROM ShoppingCarts)", status);
-        //    string query2 = "DELETE FROM ShoppingCarts";
-        //    var rowCount2 = await _context.Database.ExecuteSqlRawAsync(query2);
-        //    return RedirectToAction(nameof(Index));
-        //}
 
         [HttpPost]
         public async Task<IActionResult> СonfirmPurchase()
