@@ -13,19 +13,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Наименование
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                Цена
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SectionNumber)
+                ID фирмы
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CellNumber)
+                Номер секции
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ManufacturerId)
+                Номер ячейки
             </th>
             <th></th>
         </tr>
@@ -41,17 +41,17 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SectionNumber)
+                    @Html.DisplayFor(modelItem => item.ManufacturerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SectionNumber)                 
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CellNumber)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ManufacturerId)
-                </td>
-                <td>
                     <a asp-action="Details" asp-route-id="@item.Id">Информация</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить товар</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить товар</a> 
                     <form asp-action="СonfirmPurchase" method="post">
                         <button type="submit" class="btn btn-danger">Оформить заказ</button>
                     </form>
