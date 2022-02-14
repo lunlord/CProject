@@ -47,12 +47,19 @@ namespace CProject
                 {
                     builder.RequireClaim(ClaimTypes.Role, "Director");
                 });
-
                 options.AddPolicy("Storekeeper", builder =>
                 {
-                    builder.RequireAssertion(x => x.User.HasClaim(ClaimTypes.Role, "Storekeeper")
-                                                 || x.User.HasClaim(ClaimTypes.Role, "Director"));
+                    builder.RequireClaim(ClaimTypes.Role, "Storekeeper");
                 });
+                options.AddPolicy("Logistician", builder =>
+                {
+                    builder.RequireClaim(ClaimTypes.Role, "Logistician");
+                });
+                options.AddPolicy("Wholesaler", builder =>
+                {
+                    builder.RequireClaim(ClaimTypes.Role, "Wholesaler");
+                });
+
             });
 
             services.AddControllersWithViews();

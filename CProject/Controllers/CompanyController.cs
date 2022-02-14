@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace CProject.Controllers
 {
-    [Authorize]
-    [Authorize(Policy = "Director")]
+
     public class CompanyController : Controller
     {
         private readonly UserContext _context;
@@ -17,7 +16,7 @@ namespace CProject.Controllers
         {
             _context = context;
         }
-
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Companies.ToListAsync());
@@ -40,12 +39,14 @@ namespace CProject.Controllers
             return View(company);
         }
 
+        [Authorize(Policy = "Director")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Policy = "Director")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Country")] Company company)
         {
@@ -58,6 +59,7 @@ namespace CProject.Controllers
             return View(company);
         }
 
+        [Authorize(Policy = "Director")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,6 +76,7 @@ namespace CProject.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Director")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Country")] Company company)
         {
@@ -105,6 +108,7 @@ namespace CProject.Controllers
             return View(company);
         }
 
+        [Authorize(Policy = "Director")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,6 +127,7 @@ namespace CProject.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Policy = "Director")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
