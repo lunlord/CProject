@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,10 +20,28 @@ namespace CProject.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        // GET: Product
+        public async Task<IActionResult> Index(int? id, int? status, string name)
         {
-            var userContext = _context.Products.Include(p => p.Manufacturer).Include(p => p.Status);
-            return View(await userContext.ToListAsync());
+            IQueryable<Product> products = _context.Products.Include(p => p.Manufacturer).Include(p => p.Status);
+
+            if (id != null && id > 0)
+            {
+                products = products.Where(p => p.Id == id);
+            }
+            if (!String.IsNullOrEmpty(name))
+            {
+                products = products.Where(p => p.Name.Contains(name));
+            }
+            if (status != null && status != 0)
+            {
+                products = products.Where(p => p.StatusId == status);
+            }
+            List<Status> statuses = await _context.Statuses.ToListAsync();
+
+            statuses.Insert(0, new Status { Name = "Все", Id = 0 });
+            ViewData["StatusId"] = new SelectList(statuses, "Id", "Name");
+            return View(await products.ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
