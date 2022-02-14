@@ -141,11 +141,56 @@ namespace CProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> СonfirmPurchase()
+        //{
+        //    int status = 3;
+        //    int query1 = await _context.Database.ExecuteSqlRawAsync("UPDATE Products SET StatusId={0} WHERE Id = (SELECT IdProduct FROM ShoppingCarts)", status);
+        //    string query2 = "DELETE FROM ShoppingCarts";
+        //    var rowCount2 = await _context.Database.ExecuteSqlRawAsync(query2);
+        //    return RedirectToAction(nameof(Index));
+        //}
+
         [HttpPost]
         public async Task<IActionResult> СonfirmPurchase()
         {
-            int status = 3;
-            int query1 = await _context.Database.ExecuteSqlRawAsync("UPDATE Products SET StatusId={0} WHERE Id = (SELECT IdProduct FROM ShoppingCarts)", status);
+            int queryId = await _context.Database.ExecuteSqlRawAsync("SELECT Id FROM Products");
+            //int queryStatus = await _context.Database.ExecuteSqlRawAsync("SELECT StatusId FROM Products");
+            int queryIdProducts = await _context.Database.ExecuteSqlRawAsync("SELECT IdProduct FROM ShoppingCarts");
+            int status2 = 2;
+            int status3 = 3;
+
+            int query1 = await _context.Database.ExecuteSqlRawAsync("UPDATE Products SET StatusId={0} WHERE {1} = {2} AND StatusId={3} ", status3, queryId, queryIdProducts, status2);
+            //  var shoppcart = _context.ShoppingCarts.Take(Prod)
+            //      .Select(c => c.IdProduct);
+
+            //  var product = _context.Products
+            //      .Select(c => new
+            //      {
+            //          productId = c.Id,
+            //          statusId = c.StatusId
+            //      })
+            //      .AsEnumerable()
+            //.Select(an => new Product
+            //{
+            //    Id = an.productId,
+            //    StatusId = an.statusId
+            //});
+
+            //  //var productStatus = _context.Products
+            //  //   .Select(c => c.StatusId);
+
+
+            //  //int status = 3;
+            //  //foreach (product in shoppcart)
+            //      if (shoppcart == product)
+            //  {
+            //      shoppcart.
+            //int Product. = 3;
+
+            //( PhoneNumber = model.PhoneNumberPhoneNumber = model.PhoneNumber
+            //    //int query1 = await _context.Database.ExecuteSqlRawAsync("UPDATE Products SET StatusId={0})", status);
+            //}
             string query2 = "DELETE FROM ShoppingCarts";
             var rowCount2 = await _context.Database.ExecuteSqlRawAsync(query2);
             return RedirectToAction(nameof(Index));
