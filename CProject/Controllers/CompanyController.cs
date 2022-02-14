@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CProject.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using CProject.Models;
 
 namespace CProject.Controllers
 {
+    [Authorize]
+    [Authorize(Policy = "Director")]
     public class CompanyController : Controller
     {
         private readonly UserContext _context;
@@ -18,13 +18,11 @@ namespace CProject.Controllers
             _context = context;
         }
 
-        // GET: Company
         public async Task<IActionResult> Index()
         {
             return View(await _context.Companies.ToListAsync());
         }
 
-        // GET: Company/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,15 +40,11 @@ namespace CProject.Controllers
             return View(company);
         }
 
-        // GET: Company/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Company/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Country")] Company company)
@@ -64,7 +58,6 @@ namespace CProject.Controllers
             return View(company);
         }
 
-        // GET: Company/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,9 +73,6 @@ namespace CProject.Controllers
             return View(company);
         }
 
-        // POST: Company/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Country")] Company company)
@@ -115,7 +105,6 @@ namespace CProject.Controllers
             return View(company);
         }
 
-        // GET: Company/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,7 +122,6 @@ namespace CProject.Controllers
             return View(company);
         }
 
-        // POST: Company/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
