@@ -23,6 +23,10 @@ namespace CProject.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction(nameof(Welcome));
+            }
             return View();
         }
 
