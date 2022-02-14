@@ -62,16 +62,20 @@ namespace CProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            int status1 = 1;
-            int status2 = 2;
+            //int status1 = 1;
+            //int status2 = 2;
             var shoppingCart = await _context.ShoppingCarts.FindAsync(id);
-
-            int queryId = await _context.Database.ExecuteSqlRawAsync("SELECT Id FROM Products");
-            int queryIdProducts = await _context.Database.ExecuteSqlRawAsync("SELECT IdProduct FROM ShoppingCarts");
-            int query1 = await _context.Database.ExecuteSqlRawAsync("UPDATE Products SET StatusId={0} WHERE {1} = {2} AND StatusId={3} ", status1, queryId, queryIdProducts, status2);
-
-            _context.ShoppingCarts.Remove(shoppingCart);
-            await _context.SaveChangesAsync();
+            int idprod = shoppingCart.IdProduct;
+            var sproducts = await _context.Products.FindAsync(idprod);
+            int idP = sproducts.Id;
+            if (idP == idprod){
+                sproducts.StatusId = 1;
+                _context.ShoppingCarts.Remove(shoppingCart);
+                await _context.SaveChangesAsync();
+            }
+            //int queryId = await _context.Database.ExecuteSqlRawAsync("SELECT Id FROM Products WHERE Id = {0}", idprod);
+            ////int queryIdProducts = await _context.Database.ExecuteSqlRawAsync("SELECT IdProduct FROM ShoppingCarts WHERE IdProduct = {0}", idprod);
+            //int query1 = await _context.Database.ExecuteSqlRawAsync("UPDATE Products SET StatusId = {0} WHERE Id = {1}", status2, queryId);
 
             return RedirectToAction(nameof(Index));
         }
