@@ -39,79 +39,6 @@ namespace CProject.Controllers
             return View(shoppingCart);
         }
 
-        //// GET: ShoppingCart/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //// POST: ShoppingCart/Create
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,Name,Price,SectionNumber,CellNumber,ManufacturerId")] ShoppingCart shoppingCart)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(shoppingCart);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(shoppingCart);
-        //}
-
-        //// GET: ShoppingCart/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var shoppingCart = await _context.ShoppingCarts.FindAsync(id);
-        //    if (shoppingCart == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(shoppingCart);
-        //}
-
-        //// POST: ShoppingCart/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,SectionNumber,CellNumber,ManufacturerId")] ShoppingCart shoppingCart)
-        //{
-        //    if (id != shoppingCart.Id)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(shoppingCart);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!ShoppingCartExists(shoppingCart.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(shoppingCart);
-        //}
-
         // GET: ShoppingCart/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -135,9 +62,17 @@ namespace CProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            int status1 = 1;
+            int status2 = 2;
             var shoppingCart = await _context.ShoppingCarts.FindAsync(id);
+
+            int queryId = await _context.Database.ExecuteSqlRawAsync("SELECT Id FROM Products");
+            int queryIdProducts = await _context.Database.ExecuteSqlRawAsync("SELECT IdProduct FROM ShoppingCarts");
+            int query1 = await _context.Database.ExecuteSqlRawAsync("UPDATE Products SET StatusId={0} WHERE {1} = {2} AND StatusId={3} ", status1, queryId, queryIdProducts, status2);
+
             _context.ShoppingCarts.Remove(shoppingCart);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -155,42 +90,12 @@ namespace CProject.Controllers
         public async Task<IActionResult> СonfirmPurchase()
         {
             int queryId = await _context.Database.ExecuteSqlRawAsync("SELECT Id FROM Products");
-            //int queryStatus = await _context.Database.ExecuteSqlRawAsync("SELECT StatusId FROM Products");
             int queryIdProducts = await _context.Database.ExecuteSqlRawAsync("SELECT IdProduct FROM ShoppingCarts");
             int status2 = 2;
             int status3 = 3;
 
             int query1 = await _context.Database.ExecuteSqlRawAsync("UPDATE Products SET StatusId={0} WHERE {1} = {2} AND StatusId={3} ", status3, queryId, queryIdProducts, status2);
-            //  var shoppcart = _context.ShoppingCarts.Take(Prod)
-            //      .Select(c => c.IdProduct);
 
-            //  var product = _context.Products
-            //      .Select(c => new
-            //      {
-            //          productId = c.Id,
-            //          statusId = c.StatusId
-            //      })
-            //      .AsEnumerable()
-            //.Select(an => new Product
-            //{
-            //    Id = an.productId,
-            //    StatusId = an.statusId
-            //});
-
-            //  //var productStatus = _context.Products
-            //  //   .Select(c => c.StatusId);
-
-
-            //  //int status = 3;
-            //  //foreach (product in shoppcart)
-            //      if (shoppcart == product)
-            //  {
-            //      shoppcart.
-            //int Product. = 3;
-
-            //( PhoneNumber = model.PhoneNumberPhoneNumber = model.PhoneNumber
-            //    //int query1 = await _context.Database.ExecuteSqlRawAsync("UPDATE Products SET StatusId={0})", status);
-            //}
             string query2 = "DELETE FROM ShoppingCarts";
             var rowCount2 = await _context.Database.ExecuteSqlRawAsync(query2);
             return RedirectToAction(nameof(Index));
