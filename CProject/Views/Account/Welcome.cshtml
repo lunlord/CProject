@@ -5,11 +5,10 @@
 }
 <h1>Добро пожаловать!</h1>
 
-@*<a asp-controller="Account" asp-action="Logout">Выйти из аккаунта</a>*@
-<input type="button" class="btn btn-secondary" value="Выйти из аккаунта" onclick="location.href='@Url.Action("Logout", "Account")'" />
 <p>
-   Проверка аутентификации : @ViewBag.IsAuthenticated
+    Проверка аутентификации : @ViewBag.IsAuthenticated
 </p>
 <p>
     Электронная почта : @ViewBag.Email
-</p> 
+</p>
+<input type="button" class="btn btn-secondary" value="Выйти из аккаунта" onclick="location.href='@Url.Action("Logout", "Account")'" />

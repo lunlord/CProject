@@ -77,17 +77,6 @@ namespace CProject.Controllers
             return Redirect("~/Account/Login");
         }
 
-        //private async Task Authenticate(string userEmail)
-        //{
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Name,userEmail)
-        //    };
-        //    var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        //    var claimPrincipal = new ClaimsPrincipal(claimIdentity);
-        //    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimPrincipal);
-        //}
-
         [Authorize]
         public IActionResult Welcome()
         {
@@ -103,11 +92,5 @@ namespace CProject.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
-
-        //[HttpGet]
-        //public IActionResult Privacy()
-        //{
-        //    return View();
-        //}
     }
 }

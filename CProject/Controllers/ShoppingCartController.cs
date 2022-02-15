@@ -17,13 +17,11 @@ namespace CProject.Controllers
             _context = context;
         }
 
-        // GET: ShoppingCart
         public async Task<IActionResult> Index()
         {
             return View(await _context.ShoppingCarts.ToListAsync());
         }
 
-        // GET: ShoppingCart/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -41,7 +39,6 @@ namespace CProject.Controllers
             return View(shoppingCart);
         }
 
-        // GET: ShoppingCart/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -59,7 +56,6 @@ namespace CProject.Controllers
             return View(shoppingCart);
         }
 
-        // POST: ShoppingCart/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

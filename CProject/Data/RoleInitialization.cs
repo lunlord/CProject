@@ -12,13 +12,13 @@ namespace CProject.Data
         {
             var userManager = scopeServiceProvider.GetService<UserManager<User>>();
 
-            //директор
+           
             var director = new User
             {
                 UserName = "director@m.ru",
-                Adress = "Selo Zar",
+                Adress = "Vladimir city, Stalina 11",
                 Email = "director@m.ru",
-                PhoneNumber = "79000220000",
+                PhoneNumber = "79101119113",
                 UserRole = "Director"
             };
 
@@ -27,13 +27,13 @@ namespace CProject.Data
             {
                 userManager.AddClaimAsync(director, new Claim(ClaimTypes.Role, "Director")).GetAwaiter().GetResult();
             }
-            //кладовщик
+            
             var storekeeper = new User
             {
                 UserName = "storekeeper@m.ru",
-                Adress = "Selo Zar",
+                Adress = "Vladimir city, Lenina 6",
                 Email = "storekeeper@m.ru",
-                PhoneNumber = "79000220000",
+                PhoneNumber = "79101512113",
                 UserRole = "Storekeeper"
             };
 
@@ -42,13 +42,13 @@ namespace CProject.Data
             {
                 userManager.AddClaimAsync(storekeeper, new Claim(ClaimTypes.Role, "Storekeeper")).GetAwaiter().GetResult();
             }
-            //логист
+           
             var logistician = new User
             {
                 UserName = "logistician@m.ru",
-                Adress = "Selo Zar",
+                Adress = "Vladimir city, Belokonskaja 8",
                 Email = "logistician@m.ru",
-                PhoneNumber = "7900033000",
+                PhoneNumber = "79151112113",
                 UserRole = "Logistician"
             };
 
@@ -58,13 +58,13 @@ namespace CProject.Data
                 userManager.AddClaimAsync(logistician, new Claim(ClaimTypes.Role, "Logistician")).GetAwaiter().GetResult();
             }
 
-            //оптовик
+         
             var wholesaler = new User
             {
                 UserName = "wholesaler@m.ru",
-                Adress = "Selo Zar",
+                Adress = "Vladimir city, Gorkogo 7",
                 Email = "wholesaler@m.ru",
-                PhoneNumber = "7900000000",
+                PhoneNumber = "79101112113",
                 UserRole = "Wholesaler"
             };
 

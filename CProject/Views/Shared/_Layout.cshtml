@@ -21,34 +21,31 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Начальная страница</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
                             </li>
                         }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Материалы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Company" asp-action="Index">Фирмы</a>
+                        </li>
+                        @if (User.IsInRole("Director"))
+                        {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Материалы</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Пользователи</a>
                             </li>
+                        }
+                        @if (User.IsInRole("Wholesaler") || User.IsInRole("Director"))
+                        {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Company" asp-action="Index">Фирмы</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ShoppingCart" asp-action="Index">Заказ</a>
                             </li>
-                            @if (User.IsInRole("Director"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Пользователи</a>
-                                </li>
-                            }
-                            @if (User.IsInRole("Wholesaler") || User.IsInRole("Director"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="ShoppingCart" asp-action="Index">Заказ</a>
-                                </li>
-                            }
-                        </ul>
+                        }
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -61,7 +58,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - CProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - Оптовая база
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -7,39 +7,39 @@
 <h1>Список фирм</h1>
 @if (User.IsInRole("Director"))
 {
-<input type="button" class="btn btn-primary" value="Добавить" onclick="location.href='@Url.Action("Create", "Company")'" />
+    <input type="button" class="btn btn-primary" value="Добавить" onclick="location.href='@Url.Action("Create", "Company")'" />
 }
-    <table class="table">
-        <thead>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Название
+            </th>
+            <th>
+                Страна
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    Название
-                </th>
-                <th>
-                    Страна
-                </th>
-                <th></th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country)
+                </td>
+                @if (User.IsInRole("Director"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                    </td>
+                }
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Country)
-                    </td>
-                    @if (User.IsInRole("Director"))
-                    {
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
-                        </td>
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>

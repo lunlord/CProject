@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Материалы в корзине</h1>
+<h1>Состав заказа</h1>
 
 <form asp-action="СonfirmPurchase" method="post">
-    <input type="submit" class="btn btn-success" value="Оформить заказ"/>
+    <input type="submit" class="btn btn-success" value="Оформить заказ" />
 </form>
 <table class="table">
     <thead>
@@ -52,10 +52,8 @@
                 <td>
                     <a asp-action="Details" asp-route-id="@item.Id">Информация</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Удалить товар</a>
-                    
                 </td>
             </tr>
         }
-
     </tbody>
 </table>

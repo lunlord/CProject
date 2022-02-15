@@ -20,7 +20,6 @@ namespace CProject.Controllers
             _context = context;
         }
 
-        // GET: Product
         public async Task<IActionResult> Index(int? id, int? status, string name)
         {
             IQueryable<Product> products = _context.Products.Include(p => p.Manufacturer).Include(p => p.Status);
@@ -180,15 +179,6 @@ namespace CProject.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddToShoppingCart(Product product)
-        //{
-        //        ShoppingCart shoppingcart = new ShoppingCart { IdProduct = product.Id, Name = product.Name, Price = product.Price, SectionNumber = product.SectionNumber, CellNumber = product.CellNumber, ManufacturerId = product.ManufacturerId};
-        //        _context.Add(shoppingcart);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //}
 
         [HttpPost]
         [Authorize(Roles = "Wholesaler, Director")]

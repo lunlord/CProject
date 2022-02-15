@@ -9,6 +9,7 @@ namespace CProject.ViewModels
 
         [Display(Name = "Phone number")]
         [DataType(DataType.PhoneNumber)]
+        [StringLength(11)]
         [Required(ErrorMessage = "You need to enter Phone number")]
         public String PhoneNumber { get; set; }
 

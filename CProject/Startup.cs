@@ -19,13 +19,12 @@ namespace CProject
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<UserContext>(options => options.UseSqlServer(connection))
                 .AddIdentity<User, IdentityRole>(options =>
-                {
+                {               
                     options.User.RequireUniqueEmail = true;
                     options.User.AllowedUserNameCharacters = ".@abcdefghijklmnopqrstuvwxyz1234567890";
                     options.Password.RequireDigit = false;
@@ -60,13 +59,11 @@ namespace CProject
                 {
                     builder.RequireClaim(ClaimTypes.Role, "Wholesaler");
                 });
-
             });
 
             services.AddControllersWithViews();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -75,7 +72,6 @@ namespace CProject
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
