@@ -44,23 +44,28 @@
                     @Html.DisplayFor(modelItem => item.ManufacturerId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SectionNumber)                 
+                    @Html.DisplayFor(modelItem => item.SectionNumber)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CellNumber)
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.Id">Информация</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить товар</a> 
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить товар</a>
                     <form asp-action="СonfirmPurchase" method="post">
                         <button type="submit" class="btn btn-danger">Оформить заказ</button>
                     </form>
                 </td>
             </tr>
-
+            @*<td>
+                    <br />
+                    <form asp-action="СonfirmPurchase" method="post">
+                        <button type="submit" class="btn btn-danger">Оформить заказ</button>
+                    </form>
+                </td>*@
         }
         @*<form asp-action="СonfirmPurchase" method="post">
-            <button type="submit" class="btn btn-danger">Оформить заказ</button>
-        </form>*@
+                <button type="submit" class="btn btn-danger">Оформить заказ</button>
+            </form>*@
     </tbody>
 </table>
