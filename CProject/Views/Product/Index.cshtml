@@ -88,16 +88,16 @@
                     @Html.DisplayFor(modelItem => item.StatusDate)
                 </td>
                 <td>
-                    @if (User.IsInRole("Logistician") || User.IsInRole("Wholesaler") || User.IsInRole("Director"))
+                    @if (User.IsInRole("Logistician") || User.IsInRole("Wholesaler") || User.IsInRole("Director") || User.IsInRole("Storekeeper"))
                     {
 
-                        <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Изменить </a> @:|
 
-                        <a asp-action="Details" asp-route-id="@item.Id">Информация</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Информация </a>@:|
 
-                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить </a>
                     }
-                <td>
+<td>
                     @if (User.IsInRole("Wholesaler") || User.IsInRole("Director"))
                     {
                         <form asp-action="AddToShoppingCart" asp-route-id="@item.Id" method="post">
