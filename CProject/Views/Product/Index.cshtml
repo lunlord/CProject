@@ -32,7 +32,7 @@
 </form>
 
 </table>
-    @if (User.IsInRole("Storekeeper"))
+    @if (User.IsInRole("Storekeeper") || User.IsInRole("Director"))
     {
     <p>
         <a asp-action="Create">Добавить</a>

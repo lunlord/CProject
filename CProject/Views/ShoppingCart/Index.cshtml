@@ -4,11 +4,14 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Материалы в корзине</h1>
+<h1>Материалы в заказе</h1>
 
 @*<p>
         <a asp-action="Create">Create New</a>
     </p>*@
+<form asp-action="СonfirmPurchase" method="post">
+    <button type="submit" class="btn btn-danger">Оформить заказ</button>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -52,9 +55,6 @@
                 <td>
                     <a asp-action="Details" asp-route-id="@item.Id">Информация</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Удалить товар</a> 
-                    <form asp-action="СonfirmPurchase" method="post">
-                        <button type="submit" class="btn btn-danger">Оформить заказ</button>
-                    </form>
                 </td>
             }
             </tr>

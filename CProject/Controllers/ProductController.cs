@@ -86,7 +86,7 @@ namespace CProject.Controllers
             return View(product);
         }
 
-        [Authorize(Roles = "Logistician , Director, Storekeeper")]
+        [Authorize(Roles = "Logistician , Director, Storekeeper, Wholesaler")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -100,6 +100,7 @@ namespace CProject.Controllers
                 return NotFound();
             }
             ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Name", product.ManufacturerId);
+            ViewData["StatusId"] = new SelectList(_context.Statuses, "Id", "Name", product.StatusId);
             return View(product);
         }
 
