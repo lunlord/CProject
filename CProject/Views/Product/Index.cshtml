@@ -25,49 +25,48 @@
         <div class="form-group col-auto">
             <label>Поиск по статусу: </label>
             <select name="status" asp-items="ViewBag.StatusId"></select>
+            <button type="submit" class="btn btn-success">Поиск</button>
         </div>
-
+        
     </div>
-    <button type="submit" class="btn btn-primary">Поиск</button>
+    
 </form>
-
 </table>
-    @if (User.IsInRole("Storekeeper") || User.IsInRole("Director"))
-    {
-    <p>
-        <a asp-action="Create">Добавить</a>
-    </p>
-    }
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Наименование
-                </th>
-                <th>
-                    Цена
-                </th>
-                <th>
-                    Фирма
-                </th>
-                <th>
-                    Номер секции
-                </th>
-                <th>
-                    Номер ячейки
-                </th>
-                <th>
-                    Номер статуса
-                </th>
-                <th>
-                    Дата и время начала текущего состояния
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+
+@if (User.IsInRole("Storekeeper") || User.IsInRole("Director"))
+{
+    <input type="button" class="btn btn-primary" value="Добавить" onclick="location.href='@Url.Action("Create", "Product")'" />
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Наименование
+            </th>
+            <th>
+                Цена
+            </th>
+            <th>
+                Фирма
+            </th>
+            <th>
+                Номер секции
+            </th>
+            <th>
+                Номер ячейки
+            </th>
+            <th>
+                Номер статуса
+            </th>
+            <th>
+                Дата и время начала текущего состояния
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -94,15 +93,13 @@
                     @if (User.IsInRole("Logistician") || User.IsInRole("Wholesaler") || User.IsInRole("Director"))
                     {
 
-                        <a asp-action="Edit" asp-route-id="@item.Id">Изменить |</a>
-                        @if (User.IsInRole("Wholesaler"))
-                        {
-                            <a asp-action="Details" asp-route-id="@item.Id">Информация |</a>
-                        }
+                        <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a>
+
+                        <a asp-action="Details" asp-route-id="@item.Id">Информация</a>
+
                         <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
                     }
                 <td>
-                    <br />
                     @if (User.IsInRole("Wholesaler") || User.IsInRole("Director"))
                     {
                         <form asp-action="AddToShoppingCart" asp-route-id="@item.Id" method="post">
@@ -110,9 +107,7 @@
                         </form>
                     }
                 </td>
-                
-                
             </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>

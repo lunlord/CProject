@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using CProject.Models;
 
 namespace CProject.Models
 {
@@ -28,5 +29,7 @@ namespace CProject.Models
                     new Status{Id=4, Name="Доставлено"}
                 });
         }
+
+        public DbSet<CProject.Models.Role> Role { get; set; }
     }
 }

@@ -7,9 +7,7 @@
 <h1>Список фирм</h1>
 @if (User.IsInRole("Director"))
 {
-    <p>
-        <a asp-action="Create">Добавить</a>
-    </p>
+<input type="button" class="btn btn-primary" value="Добавить" onclick="location.href='@Url.Action("Create", "Company")'" />
 }
     <table class="table">
         <thead>
