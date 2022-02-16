@@ -11,11 +11,6 @@ namespace CProject.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [Authorize]
         public IActionResult Index()
         {
