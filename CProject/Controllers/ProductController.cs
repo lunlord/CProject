@@ -133,6 +133,7 @@ namespace CProject.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ManufacturerId"] = new SelectList(_context.Companies, "Id", "Name", product.ManufacturerId);
+            ViewData["StatusId"] = new SelectList(_context.Statuses, "Id", "Name", product.StatusId);
             return View(product);
         }
 
