@@ -16,6 +16,9 @@
                 Наименование
             </th>
             <th>
+                Количество
+            </th>
+            <th>
                 Цена
             </th>
             <th>
@@ -36,6 +39,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)

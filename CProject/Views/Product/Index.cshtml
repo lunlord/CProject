@@ -39,7 +39,13 @@
     <thead>
         <tr>
             <th>
+                ID
+            </th>
+            <th>
                 Наименование
+            </th>
+            <th>
+                Количество
             </th>
             <th>
                 Цена
@@ -54,10 +60,7 @@
                 Номер ячейки
             </th>
             <th>
-                Текущий статус
-            </th>
-            <th>
-                Дата и время начала текущего состояния
+                Текущее состояние
             </th>
             <th></th>
         </tr>
@@ -65,47 +68,50 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Manufacturer.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SectionNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CellNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StatusDate)
-                </td>
-                <td>
-                    @if (User.IsInRole("Logistician") || User.IsInRole("Wholesaler") || User.IsInRole("Director") || User.IsInRole("Storekeeper"))
-                    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Manufacturer.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SectionNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CellNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status.Name)
+            </td>
+            <td>
+                @if (User.IsInRole("Logistician") || User.IsInRole("Wholesaler") || User.IsInRole("Director") || User.IsInRole("Storekeeper"))
+                {
 
-                        <a asp-action="Edit" asp-route-id="@item.Id">Изменить </a> @:|
+                    <a asp-action="Edit" asp-route-id="@item.Id">Изменить </a> @:|
 
-                        <a asp-action="Details" asp-route-id="@item.Id">Информация </a>@:|
+                    <a asp-action="Details" asp-route-id="@item.Id">Информация </a>@:|
 
-                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить </a>
-                    }
-<td>
-                    @if (User.IsInRole("Wholesaler") || User.IsInRole("Director"))
-                    {
-                        <form asp-action="AddToShoppingCart" asp-route-id="@item.Id" method="post">
-                            <button type="submit" class="btn btn-primary">Добавить в заказ</button>
-                        </form>
-                    }
-                </td>
-            </tr>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить </a>
+                }
+            <td>
+                @if (User.IsInRole("Wholesaler") || User.IsInRole("Director"))
+                {
+                    <form asp-action="AddToShoppingCart" asp-route-id="@item.Id" method="post">
+                        <button type="submit" class="btn btn-primary">Добавить в заказ</button>
+                    </form>
+                }
+            </td>
+        </tr>
         }
     </tbody>
 </table>

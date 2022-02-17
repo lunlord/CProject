@@ -71,7 +71,7 @@ namespace CProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,SectionNumber,CellNumber,ManufacturerId,StatusId,StatusDate")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Quantity,SectionNumber,CellNumber,ManufacturerId,StatusId,StatusDate")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +105,7 @@ namespace CProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,SectionNumber,CellNumber,ManufacturerId,StatusId,StatusDate")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Quantity,SectionNumber,CellNumber,ManufacturerId,StatusId,StatusDate")] Product product)
         {
             if (id != product.Id)
             {
@@ -188,7 +188,7 @@ namespace CProject.Controllers
             if (product.StatusId == 1)
             {
                 product.StatusId = 2;
-                ShoppingCart shoppingcart = new ShoppingCart { IdProduct = product.Id, Name = product.Name, Price = product.Price, SectionNumber = product.SectionNumber, CellNumber = product.CellNumber, ManufacturerId = product.ManufacturerId };
+                ShoppingCart shoppingcart = new ShoppingCart { IdProduct = product.Id, Name = product.Name, Price = product.Price, Quantity = product.Quantity, SectionNumber = product.SectionNumber, CellNumber = product.CellNumber, ManufacturerId = product.ManufacturerId };
                 _context.Add(shoppingcart);
                 await _context.SaveChangesAsync();
             }
