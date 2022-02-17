@@ -7,19 +7,20 @@ namespace CProject.ViewModels
     {
         public string Id { get; set; }
 
-        [Display(Name = "Phone number")]
+        [Display(Name = "Номер телефона")]
         [DataType(DataType.PhoneNumber)]
-        [StringLength(11)]
-        [Required(ErrorMessage = "You need to enter Phone number")]
+        [Required(ErrorMessage = "Введите номер телефона")]
+        [RegularExpression(@"[7]{1}[0-9]{3}[0-9]{3}[0-9]{4}",
+                          ErrorMessage = "Формат номера неверен. Номер должен начинаться с 7 и содержать всего 11 цифр. (пример телефонного номера: 79991235544)")]
         public String PhoneNumber { get; set; }
 
         [Display(Name = "Adress")]
-        [Required(ErrorMessage = "You need to enter Adress")]
+        [Required(ErrorMessage = "Введите адрес проживания")]
         public String Adress { get; set; }
 
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
-        [Required(ErrorMessage = "You need to enter Email")]
+        [Required(ErrorMessage = "Введите Email")]
         public String Email { get; set; }
 
         public String Role { get; set; }
